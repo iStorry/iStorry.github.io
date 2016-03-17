@@ -1,0 +1,124 @@
+<html>
+  <title> iStorry </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- React JS -->
+  <head>
+  <style type="text/css">
+  * {
+      padding: 0;
+      margin: 0;
+  }
+
+  html {
+      font: 14px normal Arial, sans-serif;
+      color: #626771;
+      background-color: #fff;
+  }
+
+  body {
+      padding: 60px;
+      text-align: center;
+  }
+
+  ul {
+      list-style: none;
+      display: inline-block;
+  }
+
+  ul li {
+      display: inline-block;
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #eee;
+      color: #7B8585;
+      transition: 0.3s;
+  }
+
+  ul li:hover {
+      background-color: #beecea;
+  }
+
+  ul li.focused {
+      color: #fff;
+      background-color: #41c7c2;
+  }
+
+  p {
+      padding-top: 15px;
+      font-size: 12px;
+  }
+  </style>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+  <script src="js/react/react.min.js"></script>
+  <script src="js/react/react-dom.min.js"></script>
+  <script type="text/babel">
+      var MenuExample = React.createClass({
+
+          getInitialState: function() {
+              return {
+                  focused: 0
+              };
+          },
+
+          clicked: function(index) {
+
+
+              this.setState({
+                  focused: index
+              });
+          },
+
+          render: function() {
+
+              var self = this;
+
+              return ( < div >
+                  < ul > {
+                      this.props.items.map(function(m, index) {
+
+                          var style = '';
+
+                          if (self.state.focused == index) {
+                              style = 'focused';
+                          }
+
+
+                          return <li className = {
+                              style
+                          }
+                          onClick = {
+                              self.clicked.bind(self, index)
+                          } > {
+                              m
+                          } < /li>;
+
+                      })
+                  }
+
+                  < /ul>
+
+                  < p > Selected: {
+                      this.props.items[this.state.focused]
+                  } < /p> < /div>
+              );
+
+          }
+      });
+
+
+      ReactDOM.render( < MenuExample items = {
+              ['Home',  'About', 'Contact']
+          }
+          />,
+          document.getElementById('container')
+      );
+  </script>
+<!-- End JS -->
+</head>
+<div id="container">
+  <!-- This element's contents will be replaced with your component. -->
+</div>
+
+</body>
+
+</html>
