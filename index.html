@@ -2,7 +2,6 @@
 <title> 的屋 </title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-
     <style type="text/css">
         * {
             padding: 0;
@@ -69,10 +68,18 @@
             to  {opacity:1;}
         }
         #tabs,#divWrap{height:40px;width:100%;}
+
+        .baseUser {
+           margin-top: 2%;
+           width: 15%;
+           text-align: center;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
     <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/sjcl.js"></script>
     <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.cookie.js"></script>
     <link rel="stylesheet" href="js/normalize.css">
     <link rel="stylesheet" href="js/skeleton.css">
     <script>
@@ -85,12 +92,44 @@
     <div id="tabs">
         <div data-reactid=".0">
             <ul class="tab-content">
-                <li data-box="div1">Add Order </li>
-                <li data-box="div2"> Check Order </li>
-                <li data-box="div3"> Contact </li>
+                <li data-box="div0" class="focused"> My Account </li>
+                <li data-box="div1"> Add Order </li>
+                <li data-box="div2"> Bulk Order </li>
+                <li data-box="div3"> Check Order </li>
+                <li data-box="div4"> Contact </li>
             </ul>
         </div>
+    </div>
     <div id="divWrap">
+        <div id="div0">
+            <div id="loginPage" class="focused">
+            <form method="POST" id="accountLogin">
+                <dev class="six columns">
+                  <label for="username" style="text-align: left;">Authorization Key</label>
+                  <input class="u-full-width" type="text" placeholder="9cdfb439c7876e703e307864c9167a15" id="loginAuth">
+                </dev>
+                <dev class="six columns">
+                    <label for="button" style="text-align: left;"> Submit </label>
+                    <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit </button>
+                </dev>
+             </div>
+             <div id="myAccount">
+                  <dev class="four columns">
+                    <input type="button"  class="button-primary baseUser" value id="baseUser"  disabled/>
+                    <input type="button"  class="button-primary baseUser" value id="baseAmount" disabled/>
+                    <input type="button"  class="button-primary baseUser" value id="followAmt" disabled/>
+                  </dev>
+                    <form action="POST" id="renewKey">
+                         <label for="keygen" style="text-align: left;"> Authorization Key </label>
+                         <input type="text" class="u-full-width" value id="keygen" disabled>
+                         <button type="button" class="button-primary u-full-width" id="changeKey"> Renew Authorization Key </button>
+                    </form>
+                    <form action="POST" id="logout">
+                         <label for="keygen" style="text-align: left;"> Logout! </label>
+                         <button type="button" class="button-primary u-full-width" id="logoutNow"> Logout! </button>
+                    </form>
+             </div>
+        </div>
         <div id="div1">
             <form method="POST" id="addOrder">
               <dev class="row">
@@ -114,12 +153,26 @@
             </form>
         </div>
         <div id="div2">
-              Coming Soon!!
+            <form method="POST" id="bulkOrder">
+              <dev class="row">
+                <dev class="tweleve columns">
+                      <label for="username" style="text-align: left;">Add Bulk Accounts</label>
+                      <textarea class="u-full-width" placeholder="Example : biz_io|100 ( Username | Amount )" id="bulkAccount" style="margin: 0px 0px 15px; height: 272px; width: 1279px; resize: none;" ></textarea>
+                </dev>
+                <dev class="tweleve columns">
+                    <label for="button" style="text-align: left;"> Submit </label>
+                    <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit Order! </button>
+                </dev>
+              </dev>
+            </form>
         </div>
         <div id="div3">
-            <dev class="row">
+              Coming Soon!!
+        </div>
+        <div id="div4">
+            <dev class="row" >
                 <dev class="tweleve columns">
-                    <form action="//goo.gl/D6BrG8">
+                    <form action="//goo.gl/D6BrG8" style="margin-top: 2%;">
                          <input type="submit" class="button-primary u-full-width" value="iStorry (Dev)">
                     </form>
                 </dev>
@@ -131,50 +184,6 @@
             </dev>
         </div>
     </div>
-    <script>
-    $('li').on('click', function () {
-        var divID = $(this).attr('data-box');
-        switch (divID) {
-          case "div1":
-              $('#div1').show();
-              $('#div2').hide();
-              $('#div3').hide();
-            break;
-          case "div2":
-              $('#div1').hide();
-              $('#div2').show();
-              $('#div3').hide();
-            break;
-          case "div3":
-              $('#div1').hide();
-              $('#div2').hide();
-              $('#div3').show();
-            break;
-          default:
-        }
-        $(this).addClass('focused').siblings().removeClass('focused');
-        $('#' + divID).addClass('focused').siblings().removeClass('focused');
-    });
-    $(function () {
-        $('#addOrder').on('click','#submit', function(e){
-          e.preventDefault();
-          var username = $('#username').val();
-          var amount = $('#amount').val();
-          var authorization = $('#authorization').val();
-          var postData = '{"username":"'+ username + '","amount":"' + amount +'","type":"follow"}';
-          var headers = "{'Authorization:' }";
-          var url = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/follow';
-          var http = new XMLHttpRequest();
-          http.open("POST", url, true);
-          http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          http.setRequestHeader("Authorization", authorization);
-          http.onreadystatechange = function() {//Call a function when the state changes.
-               if(http.readyState == 4 && http.status == 200) {
-                    alert('Order Added');
-                    console.log(http.responseText);
-               }
-          }
-          http.send(postData);
-        });
-    });
-    </script>
+    <script src="index.js"></script>
+</body>
+</html>
