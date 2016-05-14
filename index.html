@@ -16,7 +16,10 @@
 
         body {
             padding: 60px;
-            text-align: center;
+        }
+
+        div {
+           text-align: center;
         }
 
         ul {
@@ -81,6 +84,7 @@
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery.cookie.js"></script>
     <link rel="stylesheet" href="js/normalize.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="js/skeleton.css">
     <script>
         $(function() {
@@ -112,6 +116,7 @@
                     <label for="button" style="text-align: left;"> Submit </label>
                     <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit </button>
                 </dev>
+            </form>
              </div>
              <div id="myAccount">
                   <dev class="four columns">
@@ -160,6 +165,10 @@
                       <textarea class="u-full-width" placeholder="Example : biz_io|100 ( Username | Amount )" id="bulkAccount" style="margin: 0px 0px 15px; height: 272px; width: 1279px; resize: none;" ></textarea>
                 </dev>
                 <dev class="tweleve columns">
+                    <label for="username" style="text-align: left;">Authorization Key</label>
+                    <input class="u-full-width" type="text" placeholder="9cdfb439c7876e703e307864c9167a15" id="authorizationkey">
+                </dev>
+                <dev class="tweleve columns">
                     <label for="button" style="text-align: left;"> Submit </label>
                     <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit Order! </button>
                 </dev>
@@ -184,6 +193,7 @@
             </dev>
         </div>
     </div>
-    <script src="index.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
