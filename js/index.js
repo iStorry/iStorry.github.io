@@ -1,1 +1,196 @@
-$("li").on("click",function(){var e=$(this).attr("data-box");switch(e){case"div0":$("#div0").show(),$("#div1").hide(),$("#div2").hide(),$("#div3").hide(),$("#div4").hide();break;case"div1":$("#div0").hide(),$("#div1").show(),$("#div2").hide(),$("#div3").hide(),$("#div4").hide();break;case"div2":$("#div0").hide(),$("#div1").hide(),$("#div2").show(),$("#div3").hide(),$("#div4").hide();break;case"div3":$("#div0").hide(),$("#div1").hide(),$("#div2").hide(),$("#div3").show(),$("#div4").hide();break;case"div4":$("#div0").hide(),$("#div1").hide(),$("#div2").hide(),$("#div3").hide(),$("#div4").show()}$(this).addClass("focused").siblings().removeClass("focused"),$("#"+e).addClass("focused").siblings().removeClass("focused")}),$(function(){$("#addOrder").on("click","#submit",function(e){e.preventDefault();var t=$("#username").val(),a=$("#amount").val();if(100>a)return toastr.warning("Enter Amount More Than 100","Amount Error"),0;var r=$("#authorization").val(),o='{"username":"'+t+'","amount":"'+a+'","type":"follow"}',s="http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/follow",i=new XMLHttpRequest;i.open("POST",s,!0),i.setRequestHeader("Content-type","application/x-www-form-urlencoded"),i.setRequestHeader("Authorization",r),i.onreadystatechange=function(){if(4==i.readyState&&200==i.status){var e=$.parseJSON(i.responseText);switch(e.status){case"200":toastr.success("Order ID: "+e.orderID,e.result);break;case"205":toastr.warning("Username Invalid","Invalid Order");break;case"404":toastr.error("Sorry Failed To Add Order","Invalid Order")}}},i.send(o)}),$("#accountLogin").on("click","#submit",function(e){e.preventDefault();var t=$("#loginAuth").val();if(""==t)return alert("Authorization Required!"),0;var a="http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/oauth",r=new XMLHttpRequest,o='{"type":"login"}';r.open("POST",a,!0),r.setRequestHeader("Content-type","application/x-www-form-urlencoded"),r.setRequestHeader("Authorization",t);var s=sjcl.encrypt("oauth",t);r.onreadystatechange=function(){if(4==r.readyState&&200==r.status){var e=$.parseJSON(r.responseText);switch(e.status){case"200":$.cookie("Barrier",s,{expires:1,path:"/"}),toastr.success(e.username,"Welcome Back!"),setTimeout(function(){location.reload()},2e3);break;case"404":toastr.error("Invalid Authorization!","Sorry!")}}},r.send(o)}),$("#logout").on("click","#logoutNow",function(e){e.preventDefault(),$.removeCookie("Barrier"),location.reload()}),$("#bulkOrder").on("click","#submit",function(e){e.preventDefault();var t=$("#bulkAccount").val(),a=$("#authorizationkey").val(),r='{"bulkAccount":"'+t+'","type":"bulk"}',o="http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/bulk",s=new XMLHttpRequest;s.open("POST",o,!0),s.setRequestHeader("Content-type","application/x-www-form-urlencoded"),s.setRequestHeader("Authorization",a),s.onreadystatechange=function(){if(4==s.readyState&&200==s.status){var e=$.parseJSON(s.responseText);switch(e.status){case"200":toastr.success("Order ID: "+e.orderID,e.result);break;case"205":toastr.warning("Username Invalid","Invalid Order");break;case"404":toastr.error("Sorry Failed To Add Order","Invalid Order")}}},s.send(r)})}),$(document).ready(function(){var e=$.cookie("Barrier"),t=sjcl.decrypt("oauth",e),a="http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/oauth",r=new XMLHttpRequest,o='{"type":"login"}';r.open("POST",a,!0),r.setRequestHeader("Content-type","application/x-www-form-urlencoded"),r.setRequestHeader("Authorization",t),r.onreadystatechange=function(){var e=$.parseJSON(r.responseText);if(4==r.readyState&&200==r.status)switch(e.status){case"200":console.log(r.responseText),$("#loginPage").hide(),$("#myAccount").show(),$("#myAccount").addClass("focused").siblings().removeClass("focused");var a=e.username,o=e.balance,s=e.follow_price;$("#baseUser").val("Username: "+a),$("#keygen").val(t),$("#baseAmount").val("Amount: "+o+"$"),$("#followAmt").val("Follow Amount: "+s+"$");break;case"404":console.log("No")}},r.send(o)});
+$('li').on('click', function () {
+    var divID = $(this).attr('data-box');
+    switch (divID) {
+      case "div0":
+          $('#div0').show();
+          $('#div1').hide();
+          $('#div2').hide();
+          $('#div3').hide();
+          $('#div4').hide();
+        break;
+      case "div1":
+          $('#div0').hide();
+          $('#div1').show();
+          $('#div2').hide();
+          $('#div3').hide();
+          $('#div4').hide();
+        break;
+      case "div2":
+          $('#div0').hide();
+          $('#div1').hide();
+          $('#div2').show();
+          $('#div3').hide();
+          $('#div4').hide();
+        break;
+      case "div3":
+          $('#div0').hide();
+          $('#div1').hide();
+          $('#div2').hide();
+          $('#div3').show();
+          $('#div4').hide();
+        break;
+      case "div4":
+          $('#div0').hide();
+          $('#div1').hide();
+          $('#div2').hide();
+          $('#div3').hide();
+          $('#div4').show();
+        break;
+      default:
+    }
+    $(this).addClass('focused').siblings().removeClass('focused');
+    $('#' + divID).addClass('focused').siblings().removeClass('focused');
+});
+$(function () {
+    $('#addOrder').on('click','#submit', function(e){
+      e.preventDefault();
+      var username = $('#username').val();
+      var amount = $('#amount').val();
+      if(amount < 100){
+          toastr.warning('Enter Amount More Than 100', 'Amount Error');
+          return 0;
+      }
+      var authorization = $('#authorizationID').val();
+      var postData = '{"username":"'+ username + '","amount":"' + amount +'","type":"follow"}';
+      var headers = "{'Authorization:' }";
+      var url = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/follow';
+      var http = new XMLHttpRequest();
+      http.open("POST", url, true);
+      http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      http.setRequestHeader("Authorization", authorization);
+      http.onreadystatechange = function() {//Call a function when the state changes.
+           if(http.readyState == 4 && http.status == 200) {
+                var json = $.parseJSON(http.responseText);
+                switch (json['status']) {
+                  case '200':
+                        toastr.success("Order ID: " + json['orderID'], json['result']);
+                        //$.cookie("Barrier", auth, { expires : 10, path    : '/', domain  : '127.0.0.1', secure  : true });
+                    break;
+                  case '205':
+                        toastr.warning('Username Invalid', 'Invalid Order');
+                    break;
+                  case '404':
+                      toastr.error('Sorry Failed To Add Order', 'Invalid Order');
+                    break;
+                  default:
+                }
+           }
+      }
+      http.send(postData);
+    });
+    $('#accountLogin').on('click','#submit', function(e){
+        e.preventDefault();
+        var authorization = $('#loginAuth').val();
+        if(authorization == ''){
+            alert('Authorization Required!');
+            return 0;
+        }
+        var headers = "{'Authorization:' }";
+        var url = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/oauth';
+        var http = new XMLHttpRequest();
+        var postData = '{"type":"login"}';
+        http.open("POST", url, true);
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.setRequestHeader("Authorization", authorization);
+        var auth = sjcl.encrypt("oauth", authorization);
+        http.onreadystatechange = function() {//Call a function when the state changes.
+             if(http.readyState == 4 && http.status == 200) {
+                  var json = $.parseJSON(http.responseText);
+                  switch (json['status']) {
+                    case '200':
+                          $.cookie('Barrier', auth, { expires: 1, path: '/' });
+                          toastr.success(json['username'], "Welcome Back!");
+                          setTimeout(function(){
+                                  location.reload();
+                          }, 2000);
+                          //$.cookie("Barrier", auth, { expires : 10, path    : '/', domain  : '127.0.0.1', secure  : true });
+                      break;
+                    case '404':
+                        toastr.error('Invalid Authorization!', 'Sorry!')
+                      break;
+                    default:
+                  }
+             }
+             //console.log('error');
+        }
+        http.send(postData);
+        });
+        $('#logout').on('click','#logoutNow', function(e){
+            e.preventDefault();
+            $.removeCookie('Barrier');
+            location.reload();
+        });
+        $('#bulkOrder').on('click','#submit', function(e){
+          e.preventDefault();
+          var username = $('#bulkAccount').val();
+          var authorization = $('#authorizationkey').val();
+          var postData = '{"bulkAccount":"'+ username + '","type":"bulk"}';
+          var headers = "{'Authorization:' }";
+          var url = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/bulk';
+          var http = new XMLHttpRequest();
+          http.open("POST", url, true);
+          http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          http.setRequestHeader("Authorization", authorization);
+          http.onreadystatechange = function() {//Call a function when the state changes.
+               if(http.readyState == 4 && http.status == 200) {
+                    var json = $.parseJSON(http.responseText);
+                    switch (json['status']) {
+                    case '200':
+                    toastr.success("Order ID: " + json['orderID'], json['result']);
+                    //         //$.cookie("Barrier", auth, { expires : 10, path    : '/', domain  : '127.0.0.1', secure  : true });
+                        break;
+                      case '205':
+                            toastr.warning('Username Invalid', 'Invalid Order');
+                        break;
+                      case '404':
+                          toastr.error('Sorry Failed To Add Order', 'Invalid Order');
+                        break;
+                      default:
+                    }
+               }
+          }
+          http.send(postData);
+        });
+});
+$(document).ready(function() {
+     var readCookie = $.cookie('Barrier');
+     var newAuthorization = sjcl.decrypt("oauth", readCookie);
+     var url = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/oauth';
+     var http = new XMLHttpRequest();
+     var postData = '{"type":"login"}';
+     http.open("POST", url, true);
+     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+     http.setRequestHeader("Authorization", newAuthorization);
+     http.onreadystatechange = function() {
+          var json = $.parseJSON(http.responseText);
+          if(http.readyState == 4 && http.status == 200) {
+              switch (json['status']) {
+                case '200':
+                console.log(http.responseText);
+                $('#loginPage').hide();
+                $('#myAccount').show();
+                $('#myAccount').addClass('focused').siblings().removeClass('focused');
+                //(this).addClass('focused').siblings().removeClass('focused');
+                var baseUser = json['username'];
+                var baseAmt = json['balance'];
+                var followAmt = json['follow_price'];
+                $('#baseUser').val('Username: ' + baseUser);
+                $('#keygen').val(newAuthorization);
+                $('#baseAmount').val('Amount: ' + baseAmt + '$');
+                $('#followAmt').val('Follow Amount: ' +followAmt + '$');
+                  break;
+                case '404':
+                  console.log('No');
+                break;
+              default:
+              }
+         }
+     }
+     http.send(postData);
+    //  if(readCookie == null){
+    //     console.log('no cookie');
+    //  }else{
+    //     console.log('yes cookie');
+    //  }
+    //  console.log(readCookie);
+});
