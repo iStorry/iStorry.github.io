@@ -50,6 +50,10 @@ $(function () {
           toastr.warning('Enter Amount More Than 100', 'Amount Error');
           return 0;
       }
+      if(amount > 1700){
+          toastr.warning('Enter Less Than 1700 Now');
+          return 0;
+      }
       var authorization = $('#authorizationID').val();
       var postData = '{"username":"'+ username + '","amount":"' + amount +'","type":"follow"}';
       var headers = "{'Authorization:' }";
