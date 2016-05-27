@@ -198,7 +198,7 @@ $(document).ready(function() {
     //  }
     //  console.log(readCookie);
     var database = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/base';
-    $.getJSON(database, function(data) {
+    $.getJSON(database, beforeSend: setHeader, function(data) {
         $.each(data, function(index, data) {
            $('#tablebody').append('<tr>');
            $('#tablebody').append('<td>'+data.orderid+'</td>');
@@ -211,4 +211,8 @@ $(document).ready(function() {
            $('#tablebody').append('</tr>');
         });
     });
+    function setHeader(xhr) {
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Authorization", newAuthorization);
+      }
 });
