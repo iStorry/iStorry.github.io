@@ -197,4 +197,18 @@ $(document).ready(function() {
     //     console.log('yes cookie');
     //  }
     //  console.log(readCookie);
+    var database = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/base';
+    $.getJSON(url, function(data) {
+        $.each(data, function(index, data) {
+           $('#tablebody').append('<tr>');
+           $('#tablebody').append('<td>'+data.orderid+'</td>');
+           $('#tablebody').append('<td>'+data.date+'</td>');
+           $('#tablebody').append('<td>'+data.url+'</td>');
+           $('#tablebody').append('<td>'+data.startamount+'</td>');
+           $('#tablebody').append('<td>'+data.totalamount+'</td>');
+           $('#tablebody').append('<td>'+data.typeOrder+'</td>');
+           $('#tablebody').append('<td>'+data.statusOrder+'</td>');
+           $('#tablebody').append('</tr>');
+        });
+    });
 });
