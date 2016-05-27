@@ -198,7 +198,7 @@ $(document).ready(function() {
     //  }
     //  console.log(readCookie);
     var database = 'http://0bdc9d2d256b3ee9daae347be6f4dc835a467ffe.l0c.biz/base';
-    $.getJSON(url, function(data) {
+    $.getJSON(database, function(data) {
         $.each(data, function(index, data) {
            $('#tablebody').append('<tr>');
            $('#tablebody').append('<td>'+data.orderid+'</td>');
