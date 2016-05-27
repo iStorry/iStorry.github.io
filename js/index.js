@@ -205,7 +205,7 @@ $(document).ready(function() {
         request.setRequestHeader("Authorization", newAuthorization);
     },
     dataType: "json",
-    url: settings.apiPath + settings.username + '/boards/',
+    url: database,
     success: function(data) {
         $.each(data, function(index, data) {
            $('#tablebody').append('<tr>');
