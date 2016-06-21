@@ -51,7 +51,7 @@ $(function () {
           return 0;
       }
       if(amount > 2500){
-          toastr.warning('Enter Less Than 1700 Now');
+          toastr.warning('Enter Less Than 2500 Now');
           return 0;
       }
       var authorization = $('#authorizationID').val();
