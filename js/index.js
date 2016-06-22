@@ -50,8 +50,8 @@ $(function () {
           toastr.warning('Enter Amount More Than 100', 'Amount Error');
           return 0;
       }
-      if(amount > 2500){
-          toastr.warning('Enter Less Than 2500 Now');
+      if(amount > 3500){
+          toastr.warning('Enter Less Than 3500 Now');
           return 0;
       }
       var authorization = $('#authorizationID').val();
