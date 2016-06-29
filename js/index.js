@@ -50,7 +50,7 @@ $(function () {
           toastr.warning('Enter Amount More Than 100', 'Amount Error');
           return 0;
       }
-      if(amount > 3500){
+      if(amount > 4000){
           toastr.warning('Enter Less Than 3500 Now');
           return 0;
       }
