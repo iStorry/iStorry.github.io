@@ -1,7 +1,6 @@
 <html>
 <title> 的屋 </title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <head>
     <style type="text/css">
         * {
@@ -113,132 +112,25 @@
     <link rel="stylesheet" href="js/normalize.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="js/skeleton.css">
-    <script>
-        $(function() {
-            $("#tabs").tabs();
-        });
-    </script>
-
     <body>
         <div style="margin-top: 3%; text-align: center">
             <h4> 的屋 </h4></div>
         <div id="tabs">
-            <div data-reactid=".0">
-                <ul class="tab-content">
-                    <li data-box="div0" class="focused"> My Account </li>
-                    <li data-box="div1"> Add Order </li>
-                    <li data-box="div2"> Bulk Order </li>
-                    <li data-box="div3"> Check Order </li>
-                    <li data-box="div4"> Contact </li>
-                </ul>
-            </div>
+            <div data-reactid=".0"></div>
         </div>
         <div id="divWrap">
             <div id="div0">
                 <div id="loginPage" class="focused">
                     <form method="POST" id="accountLogin">
                         <dev class="six columns">
-                            <label for="username" style="text-align: left;">Authorization Key</label>
-                            <input class="u-full-width" type="text" placeholder="9cdfb439c7876e703e307864c9167a15" id="loginAuth">
-                        </dev>
-                        <dev class="six columns">
-                            <label for="button" style="text-align: left;"> Submit </label>
-                            <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit </button>
+                            <label for="username" style="text-align: left;">Domains</label>
+                            <a href="http://x0x.in/" target="_blank"> x0x.in </a>
+                            <a href="http://istorry.com" target="_blank"> iStorry.com </a>
+                            <a href="http://l0c.biz" target="_blank"> l0c.biz </a>
                         </dev>
                     </form>
                 </div>
-                <div id="myAccount">
-                    <dev class="four columns">
-                        <input type="button" class="button-primary baseUser" value id="baseUser" disabled/>
-                        <input type="button" class="button-primary baseUser" value id="baseAmount" disabled/>
-                        <input type="button" class="button-primary baseUser" value id="followAmt" disabled/>
-                    </dev>
-                    <form action="POST" id="renewKey">
-                        <label for="keygen" style="text-align: left;"> Authorization Key </label>
-                        <input type="text" class="u-full-width" value id="keygen" disabled>
-                        <button type="button" class="button-primary u-full-width" id="changeKey"> Renew Authorization Key </button>
-                    </form>
-                    <form action="POST" id="logout">
-                        <label for="keygen" style="text-align: left;"> Logout! </label>
-                        <button type="button" class="button-primary u-full-width" id="logoutNow"> Logout! </button>
-                    </form>
-                </div>
             </div>
-            <div id="div1">
-                <form method="POST" id="addOrder">
-                    <dev class="row">
-                        <dev class="tweleve columns">
-                            <label for="username" style="text-align: left;">Twitter Username</label>
-                            <input class="u-full-width" type="text" placeholder="biz_io" id="username">
-                        </dev>
-                        <dev class="tweleve columns">
-                            <label for="username" style="text-align: left;">Amount</label>
-                            <input class="u-full-width" type="number" placeholder="100" id="amount">
-                        </dev>
-                        <dev class="tweleve columns">
-                            <label for="username" style="text-align: left;">Authorization Key</label>
-                            <input class="u-full-width" type="text" placeholder="9cdfb439c7876e703e307864c9167a15" id="authorizationID">
-                        </dev>
-                        <dev class="tweleve columns">
-                            <label for="button" style="text-align: left;"> Submit </label>
-                            <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit </button>
-                        </dev>
-                    </dev>
-                </form>
-            </div>
-            <div id="div2">
-                <form method="POST" id="bulkOrder">
-                    <dev class="row">
-                        <dev class="tweleve columns">
-                            <label for="username" style="text-align: left;">Add Bulk Accounts</label>
-                            <textarea class="u-full-width" placeholder="Example : biz_io|100 ( Username | Amount )" id="bulkAccount" style="margin: 0px 0px 15px; height: 272px; width: 1279px; resize: none;"></textarea>
-                        </dev>
-                        <dev class="tweleve columns">
-                            <label for="username" style="text-align: left;">Authorization Key</label>
-                            <input class="u-full-width" type="text" placeholder="9cdfb439c7876e703e307864c9167a15" id="authorizationkey">
-                        </dev>
-                        <dev class="tweleve columns">
-                            <label for="button" style="text-align: left;"> Submit </label>
-                            <button class="button-primary u-full-width" id="submit" name="submit" type="button"> Submit Order! </button>
-                        </dev>
-                    </dev>
-                </form>
-            </div>
-            <div id="div3">
-               <dev class="myrow">
-                 <dev class="tweleve columns">
-                   <table class="myrow">
-                     <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Date</th>
-                            <th>Order URL</th>
-                            <th>Start Count</th>
-                            <th>Total Amount</th>
-                            <th>Order Type</th>
-                            <th>Order Status</th>
-                        </tr>
-                     </thead>
-                     <tbody id="tablebody"></tbody>
-                 </table>
-               </dev>
-             </dev>
-            </div>
-            <div id="div4">
-                <dev class="row">
-                    <dev class="tweleve columns">
-                        <form action="//goo.gl/D6BrG8" style="margin-top: 2%;">
-                            <input type="submit" class="button-primary u-full-width" value="iStorry (Dev)">
-                        </form>
-                    </dev>
-                    <dev class="tweleve columns">
-                        <form action="//www.facebook.com/kunalnagpalx?fref=ts">
-                            <input type="submit" class="button-primary u-full-width" value="Kunal">
-                        </form>
-                    </dev>
-                </dev>
-            </div>
-        </div>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script src="js/index.js"></script>
     </body>
