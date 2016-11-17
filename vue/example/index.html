@@ -1,0 +1,109 @@
+<html>
+<title> </title>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@next/lib/theme-default/index.css">
+    <link href='//fonts.googleapis.com/css?family=Dosis:500' rel='stylesheet' type='text/css'>
+    <style type="text/css"> 
+    	#app { margin-left: 20%; margin-right: 20%; margin-top: 10%; }
+    	body { line-height: 30px; color: #324057; font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif; font-weight: 500; font-size: 1em; }
+    	h1{ text-align: center; }
+    </style>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+	  jQuery(function($) {
+	      var submitActor = null;
+	      var $form = $('#login');
+	      var $submitActors = $form.find('el-button[type=primary]');
+	      $form.submit(function(event) {
+	          if (null === submitActor) {
+	              // If no actor is explicitly clicked, the browser will
+	              // automatically choose the first in source-order
+	              // so we do the same here
+	              submitActor = $submitActors[0];
+	          }
+
+	          console.log(submitActor.name);
+	          // alert(submitActor.name);
+
+	          return false;
+	      });
+
+	      $submitActors.click(function(event) {
+	          submitActor = this;
+	      });
+	  });
+  </script>
+</head>
+<body>
+    <div id="app">
+        <el-row>
+            <el-col :span="24">
+            <h1> Example Vue.js + element eleme </h1>
+                <div class="grid-content bg-purple-dark" style=" display: inline;">
+                <el-form :model="login" :rules="rules2" ref="login" class="demo-ruleForm">
+                	<label for="username"> Username
+                    	<el-input placeholder="Username" v-model="login.username"></el-input>
+                    </label>
+                    <div style="padding: 1%;"></div>
+                    <label for="password"> Password
+                    	<el-input type="password" placeholder="Password" v-model="login.password"></el-input>
+                    </label>
+                    <div style="padding: 1%;"></div>
+                    <label for="button"> Submit 
+                   		 <el-button type="primary" id="button" :loading="false" v-model="login.button" style="width: 100%;" @click="handleSubmit2">Submit</el-button>
+                    </label>
+                </form>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</center>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui@next/lib/index.js"></script>
+<script>
+var Main = {
+        data() {
+        	return {
+		        login: {
+		          username: '',
+		          password: ''
+		        },
+		        rules2: {
+          			username: [
+			            { required: true, message: 'Please input the username', trigger: 'blur' }
+		          	],
+		          	password: [
+			            { required: true, message: 'Please input the password', trigger: 'blur' }
+		          	],
+		        }
+		    };
+		},
+		methods: {
+			 notify(title, message, type) {
+			 	this.$notify({
+			 		title: title,
+			 		message: message,
+			 		type: type
+			 	});
+			 },
+			 handleSubmit2(ev) {
+			 	 var username = this.login.username;
+			 	 if (username == ''){ this.notify("Error", "Please input the username", "warning"); return; }
+			 	 var password =  this.login.password;
+			 	 if (password == ''){ this.notify("Error", "Please input the password", "warning"); return; }
+			 	 this.notify("Success", "Logged In.", "success");
+			 }
+		}
+	}
+var Ctor = Vue.extend(Main)
+new Ctor().$mount('#app')
+</script>
+</html>
+
+<!-- 引入组件库 -->
